@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url('background.jpg');
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="center" src="./Coronactivities.jpg">
+        <br />
+        <a href="/activities/new" class="btn btn-success"
+            style="background-color:powderblue; color: blue; font-weight:bold; border-color: blue;">
+            Add Activity</a>
+        <% activities.forEach(activity => { %>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title"><%= activity.title %></h4>
+                <div class="card-subtitle text-muted mb-2">
+                    <%=activity.creationDate.toLocaleDateString() %>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</body>
+
+</html>
