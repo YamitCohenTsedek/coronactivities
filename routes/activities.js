@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/new', (req, res) => {
-    res.render('activities/new')
+    const categories = ['Cooking', 'Sport', 'Crafts', 'Music', 'Reading', 'Home Organization', 'Games', 'Other']
+    categories.sort()
+    res.render('activities/new', { categories: categories })
 })
 
 router.post('/', (req, res) => {
