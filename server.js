@@ -3,7 +3,7 @@ const activityRouter = require('./routes/activities')
 const app = express()
 
 app.set('view engine', 'ejs')
-app.use('activities', activityRouter)
+app.use('/activities', activityRouter)
 app.use(express.static("./resources"));
 
 app.get('/', (req, res) => {
@@ -13,6 +13,6 @@ app.get('/', (req, res) => {
         category: 'test category',
         description: 'test description'
     }]
-    res.render('index', {activities: activities})
+    res.render('activities/index', {activities: activities})
 })
 app.listen(5400)
