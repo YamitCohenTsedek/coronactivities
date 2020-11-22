@@ -22,7 +22,10 @@ app.get('/', (req, res) => {
     const activities = [{
         title: 'Storytelling I Spy',
         creationDate: new Date(),
-        category: 'Games',
+        targetAudience: ' kids, teenagers, adults',
+        category: 'games',
+        designedFor: 'many participants',
+        cost: 'free',
         description: 'If you enjoy a bit of honest misdirection and like to keep your friends guessing, this is for you. Perfect for people with a flair for drama, this game is another great way to learn a bit more about each player, whether you discover that they’re a master of deception or that they happen to own a secret snow globe collection.',
         markdown: 'To play, each person takes a turn picking an object in their house and telling the story of how they got it, without actually saying what it is. The rest of the group then has to guess, as quickly as they can, what that object is. Depending on how challenging you want the game to be, you can keep it light by only recounting the origin stories of items most people probably have in their home, or you can lift the restriction and let players pick from any of their possessions.'
     }]

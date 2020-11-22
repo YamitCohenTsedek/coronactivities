@@ -10,7 +10,6 @@
         body {
             background-image: url('background.jpg');
         }
-
         img {
             display: block;
             margin-left: auto;
@@ -22,8 +21,7 @@
 <body>
     <div class="container">
         <img class="center" style="padding-bottom: 10px;" src="./Coronactivities.jpg">
-        <a href="/activities/new" class="btn btn-success"
-            style="background-color:powderblue; color: blue; font-weight:bold; border-color: blue;">
+        <a href="/activities/new" class="btn btn-primary">
             New Activity</a>
         <% activities.forEach(activity => { %>
         <div class="card mt-4">
@@ -33,6 +31,9 @@
                     <%=activity.creationDate.toLocaleDateString() %>
                 </div>
                 <div class="card-text mb-2"><%= "Category: " + activity.category %></div>
+                <div class="card-text mb-2"><%= "Target audience: " + activity.targetAudience %></div>
+                <div class="card-text mb-2"><%= "Designed for: " + activity.designedFor %></div>
+                <div class="card-text mb-2"><%= "Cost: " + activity.cost %></div>
                 <div class="card-text mb-2"><%= activity.description %></div>
             </div>
         </div>

@@ -5,20 +5,26 @@ const Activity = require('./../models/activity')
 // A router that can be used to create views.
 const router = express.Router()
 
-const categories = ['Cooking', 'Sport', 'Crafts', 'Music', 'Reading', 'Home Organization', 'Games', 'Other']
+categories = ['cooking', 'sport', 'crafts', 'music', 'reading', 'home organization', 'games']
 categories.sort()
+categories.push('other')
+
+const targetAudience = [' kids', ' teenagers', ' adults']
+
+const designedFor = ['one participant', 'many participants']
 
 router.get('/new', (req, res) => {    
-    res.render('activities/new', { activity: new Activity(), categories: categories })
+    res.render('activities/new', { activity: new Activity(), categories: categories, targetAudience: targetAudience, designedFor: designedFor })
 })
 
 // Whenever we pass a route that has activity/{id}, the following code will be executed.
 router.get('/:id', async (req, res) => {
     const activity = await Activity.findById(req.params.id)
-    // If the given id doesn't exist, go back to the home page. 
+    // If the given id doesn't exist, redirect the user back to the home page. 
     if (activity == null) {
         res.redirect('/')
     }
+    res.render('activities/display', { activity: activity })
 })
 
 // Whenever we submit the New Activity form, the following code will be executed.
@@ -26,17 +32,21 @@ router.post('/', async (req, res) => {
     let activity = new Activity({
         title: req.body.title,
         category: req.body.category,
+        designedFor: req.body.designedFor,
+        targetAudience: req.body.targetAudience,
+        cost: req.body.cost,
         description: req.body.description,
         markdown: req.body.markdown
     })
     try {
         // Save the new activity.
-        activity = await activity.Save()
+        activity = await activity.save()
         // Redirect to the page of the saved activity.
-        res.redirect('/activities/${activity.id}')
+        res.redirect(`/activities/${activity.id}`)
     // If an error oocurred, render out the page we were on. 
     } catch (err) {
-        res.render('activities/new', { activity: activity, categories: categories })
+        console.log(err);
+        res.render('activities/new', { activity: activity, categories: categories, targetAudience: targetAudience, designedFor: designedFor })
     }
 })
 

@@ -5,7 +5,23 @@ const activitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    creationDate: {
+        type: Date,
+        default: () => Date.now()
+    },
     category: {
+        type: String,
+        required: true
+    },
+    targetAudience: {
+        type: Object,
+        required: true
+    },
+    designedFor: {
+        type: String,
+        required: true
+    },
+    cost : {
         type: String,
         required: true
     },
@@ -15,10 +31,6 @@ const activitySchema = new mongoose.Schema({
     markdown: {
         type: String,
         required: true
-    },
-    creationDate: {
-        type: Date,
-        default: () => Date.now()
     }
 })
 
