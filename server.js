@@ -2,6 +2,8 @@
 const express = require('express')
 // A MongoDB object modeling tool designed to work in an asynchronous environment.
 const mongoose = require('mongoose')
+// Import the Activity model.
+const Activity = require('./models/activity')
 // Access to the router which was created in the specified file.
 const activityRouter = require('./routes/activities')
 const app = express()
@@ -18,20 +20,17 @@ app.use(express.urlencoded({ extended: false}))
 app.use(express.static("./resources"));
 
 // The index/main route.
-app.get('/', (req, res) => {
-    const activities = [{
-        title: 'Storytelling I Spy',
-        creationDate: new Date(),
-        targetAudience: ' kids, teenagers, adults',
-        category: 'games',
-        designedFor: 'many participants',
-        cost: 'free',
-        description: 'If you enjoy a bit of honest misdirection and like to keep your friends guessing, this is for you. Perfect for people with a flair for drama, this game is another great way to learn a bit more about each player, whether you discover that they’re a master of deception or that they happen to own a secret snow globe collection.',
-        markdown: 'To play, each person takes a turn picking an object in their house and telling the story of how they got it, without actually saying what it is. The rest of the group then has to guess, as quickly as they can, what that object is. Depending on how challenging you want the game to be, you can keep it light by only recounting the origin stories of items most people probably have in their home, or you can lift the restriction and let players pick from any of their possessions.',
-        password: '123456'
-    }]
+app.get('/', async (req, res) => {
+    const activities = await Activity.find().sort({ creationDate: 'desc' })
+    
     // Access to specified path from the views folder, with the given options.
     res.render('activities/index', {activities: activities})
+})
+
+app.get('/sortedByCategory', async (req, res) => {
+    const activities = await Activity.find().sort({ category: 'asc' })
+    // Access to specified path from the views folder, with the given options.
+    res.render('activities/sortedByCategory', {activities: activities})
 })
 
 // Use the activity router, and specify the path on which it is going to be based.

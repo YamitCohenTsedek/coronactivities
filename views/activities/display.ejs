@@ -25,11 +25,11 @@
             <h1 class="mb-3" style="color:black; font-weight: bold; font-size: 42px;"> <%= activity.title %></h1>
             <div class="text-muted mb-4"><%= activity.creationDate.toLocaleDateString() %></div>
             <a href="/" class="btn btn-info">All Activities</a>
-            <a href="/activities/edit/<%= activity.id %>" onclick="validatePassword('<%=activity.password %>');"
+            <a href="/activities/edit/<%= activity.id %>" onclick="return validatePassword('<%= activity.password %>');"
                 class="btn btn-primary">Edit</a>
             <script>
                 function validatePassword(activityPassword) {
-                    var password = ""
+                    var password = null
                     do {
                         password = prompt('To edit the post, please enter the password.', '');
                         if (password === null) {
