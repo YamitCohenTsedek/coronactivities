@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" oncontextmenu="return false;">
 
 <head>
     <meta charset="UTF-8">
@@ -22,9 +22,28 @@
 <body>
     <div class="container">
         <div style="background-color:rgb(225, 248, 245);" class="container p-4 mt-4 mb-4 ml-0 w-75">
-        <h1 class = "mb-5" style="color:black; font-weight: bold; font-size: 42px;"> <%=activity.targetAudience%></h1>
+            <h1 class="mb-3" style="color:black; font-weight: bold; font-size: 42px;"> <%= activity.title %></h1>
+            <div class="text-muted mb-4"><%= activity.creationDate.toLocaleDateString() %></div>
+            <a href="/" class="btn btn-info">All Activities</a>
+            <a href="/activities/edit/<%= activity.id %>" onclick="validatePassword('<%=activity.password %>');"
+                class="btn btn-primary">Edit</a>
+            <script>
+                function validatePassword(activityPassword) {
+                    var password = ""
+                    do {
+                        password = prompt('To edit the post, please enter the password.', '');
+                        if (password === null) {
+                            return false;
+                        }
+                    } while (password != activityPassword);
+                    return true;
+                }
+            </script>
+            <div style="width: 50em; overflow-wrap: break-word;" class="card-text mt-4 mb-2"><%= activity.markdown %>
+            </div>
+        </div>
     </div>
-</div>
+    </div>
 </body>
 
 </html>

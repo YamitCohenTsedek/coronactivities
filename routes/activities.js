@@ -29,14 +29,15 @@ router.get('/:id', async (req, res) => {
 
 // Whenever we submit the New Activity form, the following code will be executed.
 router.post('/', async (req, res) => {
-    let activity = new Activity({
+    activity = new Activity({
         title: req.body.title,
         category: req.body.category,
         designedFor: req.body.designedFor,
         targetAudience: req.body.targetAudience,
         cost: req.body.cost,
         description: req.body.description,
-        markdown: req.body.markdown
+        markdown: req.body.markdown,
+        password: req.body.password
     })
     try {
         // Save the new activity.
