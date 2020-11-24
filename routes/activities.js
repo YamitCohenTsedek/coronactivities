@@ -18,8 +18,8 @@ router.get('/new', (req, res) => {
 })
 
 // Whenever we pass a route that has activity/{id}, the following code will be executed.
-router.get('/:id', async (req, res) => {
-    const activity = await Activity.findById(req.params.id)
+router.get('/:slug', async (req, res) => {
+    const activity = await Activity.findOne({slug: req.params.slug})
     // If the given id doesn't exist, redirect the user back to the home page. 
     if (activity == null) {
         res.redirect('/')
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
         // Save the new activity.
         activity = await activity.save()
         // Redirect to the page of the saved activity.
-        res.redirect(`/activities/${activity.id}`)
+        res.redirect(`/activities/${activity.slug}`)
     // If an error oocurred, render out the page we were on. 
     } catch (err) {
         console.log(err);

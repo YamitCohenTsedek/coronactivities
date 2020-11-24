@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const slugify = require('slugify')
 
 const activitySchema = new mongoose.Schema({
     title: {
@@ -35,7 +36,20 @@ const activitySchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    slug: {
+        type: String,
+        required: true,
+        unique: true
     }
+})
+
+// Before making a validation on an activity create a slug from the title.
+activitySchema.pre('validate', function(next) {
+    if (this.title) {
+        this.slug = slugify(this.title, {lower: true, strict: true})
+    }
+    next()
 })
 
 // Export the activity schema.

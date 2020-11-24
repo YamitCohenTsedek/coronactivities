@@ -9,7 +9,7 @@ const activityRouter = require('./routes/activities')
 const app = express()
 
 // Connect to the database.
-mongoose.connect('mongodb+srv://coronactivities:coronactivities@coronactivities.einpk.mongodb.net/coronactivities?retryWrites=true&w=majority', { useUnifiedTopology:true, useNewUrlParser: true})
+mongoose.connect('mongodb+srv://coronactivities:coronactivities@coronactivities.einpk.mongodb.net/coronactivities?retryWrites=true&w=majority', { useUnifiedTopology:true, useNewUrlParser: true, useCreateIndexes: true})
 
 // We will write our views using ejs and our view engine will convert that ejs code to HTML.
 // ejs lets you generate HTML markup with plain JavaScript.
