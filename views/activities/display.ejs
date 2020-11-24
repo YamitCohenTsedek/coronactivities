@@ -25,8 +25,6 @@
             <h1 class="mb-3" style="color:black; font-weight: bold; font-size: 42px;"> <%= activity.title %></h1>
             <div class="text-muted mb-4"><%= activity.creationDate.toLocaleDateString() %></div>
             <a href="/" class="btn btn-info">All Activities</a>
-            <a href="/activities/edit/<%= activity.id %>" onclick="return validatePassword('<%= activity.password %>');"
-                class="btn btn-primary">Edit</a>
             <script>
                 function validatePassword(activityPassword) {
                     var password = null
@@ -39,6 +37,9 @@
                     return true;
                 }
             </script>
+            <a href="/activities/edit/<%= activity.id %>" onclick="return validatePassword('<%= activity.password %>');"
+                class="btn btn-primary">Edit</a>
+
             <div style="width: 50em; overflow-wrap: break-word;" class="card-text mt-4 mb-2"><%= activity.markdown %>
             </div>
         </div>

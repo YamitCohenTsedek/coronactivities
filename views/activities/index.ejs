@@ -36,7 +36,22 @@
                 <div class="card-text mb-2"><b><%= "Designed for: " %></b><%= activity.designedFor %></div>
                 <div class="card-text mb-2"><b><%= "Cost: " %></b><%= activity.cost %></div>
                 <div class="card-text mb-2"><%= activity.description %></div>
-                <a href="activities/<%= activity.slug %>" class= "btn btn-info">Read More</a>
+                <a href="activities/<%= activity.slug %>" class="btn btn-info">Read More</a>
+                <script>
+                    function validatePassword(activityPassword) {
+                        var password = null
+                        do {
+                            password = prompt('To delete the post, please enter the password.', '');
+                            if (password === null) {
+                                return false;
+                            }
+                        } while (password != activityPassword);
+                        return true;
+                    }
+                </script>
+                <form action="/activities/<%= activity.id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger" onclick="return validatePassword('<%= activity.password %>');">Delete</button>
+                </form>
             </div>
         </div>
         <% }) %>

@@ -6,10 +6,13 @@ const mongoose = require('mongoose')
 const Activity = require('./models/activity')
 // Access to the router which was created in the specified file.
 const activityRouter = require('./routes/activities')
+// Method override enables using HTTP DELETE.
+const methodOverride = require('method-override')
 const app = express()
 
+mongoose.set('useCreateIndex', true);
 // Connect to the database.
-mongoose.connect('mongodb+srv://coronactivities:coronactivities@coronactivities.einpk.mongodb.net/coronactivities?retryWrites=true&w=majority', { useUnifiedTopology:true, useNewUrlParser: true, useCreateIndexes: true})
+mongoose.connect('mongodb+srv://coronactivities:coronactivities@coronactivities.einpk.mongodb.net/coronactivities?retryWrites=true&w=majority', { useUnifiedTopology:true, useNewUrlParser: true})
 
 // We will write our views using ejs and our view engine will convert that ejs code to HTML.
 // ejs lets you generate HTML markup with plain JavaScript.
@@ -17,7 +20,10 @@ app.set('view engine', 'ejs')
 
 // Enable access to all the parameters of the activity form from the activity route by req.body.
 app.use(express.urlencoded({ extended: false}))
+
 app.use(express.static("./resources"));
+
+app.use(methodOverride('_method'))
 
 // The index/main route.
 app.get('/', async (req, res) => {
