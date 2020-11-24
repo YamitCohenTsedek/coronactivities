@@ -6,7 +6,7 @@ const mongoose = require('mongoose')
 const Activity = require('./models/activity')
 // Access to the router which was created in the specified file.
 const activityRouter = require('./routes/activities')
-// Method override enables using HTTP DELETE.
+// Method override enables using HTTP DELETE and HTTP PUT.
 const methodOverride = require('method-override')
 const app = express()
 

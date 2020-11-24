@@ -1,5 +1,9 @@
 const mongoose = require('mongoose')
 const slugify = require('slugify')
+const marked = require('marked')
+const domPurifyFunc = require('dompurify')
+const { JSDOM } = require('jsdom')
+domPurify = domPurifyFunc(new JSDOM().window)
 
 const activitySchema = new mongoose.Schema({
     title: {
@@ -41,6 +45,10 @@ const activitySchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    purifiedHTML: {
+        type: String,
+        required: true
     }
 })
 
@@ -48,6 +56,10 @@ const activitySchema = new mongoose.Schema({
 activitySchema.pre('validate', function(next) {
     if (this.title) {
         this.slug = slugify(this.title, {lower: true, strict: true})
+    }
+    if (this.markdown) {
+        // Convert the markdown to HTML and then sanitize the HTML.
+        this.purifiedHTML = domPurify.sanitize(marked(this.markdown))
     }
     next()
 })
