@@ -9,6 +9,7 @@
     <style>
         body {
             background-image: url('../background.jpg');
+            background-image: url('../<%=activity.category%>.jpg');
         }
 
         img {
@@ -22,14 +23,14 @@
 <body>
     <div class="container">
         <div style="background-color:rgb(225, 248, 245);" class="container p-4 mt-4 mb-4 ml-0 w-75">
-            <h1 class="mb-3" style="color:black; font-weight: bold; font-size: 42px;"> <%= activity.title %></h1>
+            <h1 class="mb-2" style="color:black; font-weight: bold; font-size: 42px;"> <%= activity.title %></h1>
             <div class="text-muted mb-4"><%= activity.creationDate.toLocaleDateString() %></div>
             <a href="/" class="btn btn-info">All Activities</a>
             <script>
                 function validatePassword(activityPassword) {
                     var password = null
                     do {
-                        password = prompt('To edit the post, please enter the password.', '');
+                        password = prompt('Please enter the password.', '');
                         if (password === null) {
                             return false;
                         }
@@ -39,8 +40,16 @@
             </script>
             <a href="/activities/edit/<%= activity.id %>" onclick="return validatePassword('<%= activity.password %>');"
                 class="btn btn-primary">Edit</a>
-
-            <div style="width: 50em; overflow-wrap: break-word;" class="card-text mt-4 mb-2"><%= activity.markdown %>
+            <form action="/activities/<%= activity.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger"
+                    onclick="return validatePassword('<%= activity.password %>');">Delete</button>
+            </form>
+            <div class="card-text mb-2 mt-4"><b><%= "Category: " %></b><%= activity.category %></div>
+            <div class="card-text mb-2"><b><%= "Target audience: " %></b><%= activity.targetAudience %></div>
+            <div class="card-text mb-2"><b><%= "Designed for: " %></b><%= activity.designedFor %></div>
+            <div class="card-text mb-2"><b><%= "Cost: " %></b><%= activity.cost %></div>
+            <div class="card-text mb-2"><b><%= "Description: " %></b><%= activity.description %></div>
+            <div style="width: 50em; overflow-wrap: break-word;" class="card-text mt-5 mb-2"><%= activity.markdown %>
             </div>
         </div>
     </div>

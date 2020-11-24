@@ -17,10 +17,10 @@ router.get('/new', (req, res) => {
     res.render('activities/new', { activity: new Activity(), categories: categories, targetAudience: targetAudience, designedFor: designedFor })
 })
 
-// Whenever we pass a route that has activity/{id}, the following code will be executed.
+// Whenever we pass a route that has activity/{slug}, the following code will be executed.
 router.get('/:slug', async (req, res) => {
     const activity = await Activity.findOne({slug: req.params.slug})
-    // If the given id doesn't exist, redirect the user back to the home page. 
+    // If the given slug doesn't exist, redirect the user back to the home page. 
     if (activity == null) {
         res.redirect('/')
     }
