@@ -37,7 +37,7 @@ const activitySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
+    code: {
         type: String,
         required: true
     },

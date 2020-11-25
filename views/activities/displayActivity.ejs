@@ -8,8 +8,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         body {
-            background-image: url('../background.jpg');
-            background-image: url('../<%=activity.category%>.jpg');
+            background-image: url('../<%= activity.category%>.jpg');
         }
 
         img {
@@ -27,22 +26,20 @@
             <div class="text-muted mb-4"><%= activity.creationDate.toLocaleDateString() %></div>
             <a href="/" class="btn btn-info">All Activities</a>
             <script>
-                function validatePassword(activityPassword) {
-                    var password = null
+                function validateCode(activityCode) {
+                    var code = null
                     do {
-                        password = prompt('Please enter the password.', '');
-                        if (password === null) {
+                        code = prompt('To delete the activity, enter the code.', '');
+                        if (code === null) {
                             return false;
                         }
-                    } while (password != activityPassword);
+                    } while (code != activityCode);
                     return true;
                 }
             </script>
-            <a href="/activities/edit/<%= activity.id %>" onclick="return validatePassword('<%= activity.password %>');"
-                class="btn btn-primary">Edit</a>
             <form action="/activities/<%= activity.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger"
-                    onclick="return validatePassword('<%= activity.password %>');">Delete</button>
+                    onclick="return validateCode('<%= activity.code %>');">Delete</button>
             </form>
             <div class="card-text mb-2 mt-4"><b><%= "Category: " %></b><%= activity.category %></div>
             <div class="card-text mb-2"><b><%= "Target audience: " %></b><%= activity.targetAudience %></div>

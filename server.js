@@ -25,18 +25,22 @@ app.use(express.static("./resources"));
 
 app.use(methodOverride('_method'))
 
+
+categories = ['Cooking', 'Fitness', 'Crafts', 'Music', 'Reading', 'Home-Organization', 'Games', 'Drawing', 'Magic', 'Photography', 'Volunteering']
+categories.sort()
+categories.push('Other')
+exports.categories = categories
+
 // The index/main route.
 app.get('/', async (req, res) => {
     const activities = await Activity.find().sort({ creationDate: 'desc' })
-    
     // Access to specified path from the views folder, with the given options.
-    res.render('activities/index', {activities: activities})
+    res.render('activities/index', {activities: activities, categories: categories})
 })
 
-app.get('/sortedByCategory', async (req, res) => {
-    const activities = await Activity.find().sort({ category: 'asc' })
-    // Access to specified path from the views folder, with the given options.
-    res.render('activities/sortedByCategory', {activities: activities})
+app.get('/:category', async (req, res) => {
+    const activities = await Activity.find({category: req.params.category}).sort({ creationDate: 'desc' })
+    res.render('activities/index', {activities: activities})
 })
 
 // Use the activity router, and specify the path on which it is going to be based.
