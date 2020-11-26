@@ -5,11 +5,13 @@ const Activity = require('./../models/activity')
 // A router that can be used to create views.
 const router = express.Router()
 
-
+// The possible target audience of the activities.
 const targetAudience = [' kids', ' teenagers', ' adults']
 
+// The possibilites for how many participants the activity is designed for.
 const designedFor = ['one participant', 'many participants']
 
+// The route of creating a new activity.
 router.get('/newActivity', (req, res) => {    
     res.render('activities/newActivity', { activity: new Activity(), categories: categories, targetAudience: targetAudience, designedFor: designedFor })
 })
